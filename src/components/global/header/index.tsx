@@ -38,7 +38,7 @@ function AuthButtons() {
             <Link href={process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL}>Sign in</Link>
           </Button>
           <Button size='lg' asChild>
-            <Link href={process.env.NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL}>Sign up</Link>
+            <Link href={process.env.NEXT_PUBLIC_CLERK_SIGN_UP_URL}>Sign up</Link>
           </Button>
         </SignedOut>
       </ClerkLoaded>

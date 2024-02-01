@@ -1,4 +1,5 @@
 import AuthHeader from '@/components/pages/auth';
+import { SignUp } from '@clerk/nextjs';
 import { Fragment } from 'react';
 
 export default function Page() {
@@ -6,9 +7,11 @@ export default function Page() {
     <Fragment>
       <AuthHeader />
       <main>
-        <div>
-          <p>Auth - Sign up</p>
-        </div>
+        <section>
+          <div className='py-14 flex items-center justify-center'>
+            <SignUp />
+          </div>
+        </section>
       </main>
     </Fragment>
   );
