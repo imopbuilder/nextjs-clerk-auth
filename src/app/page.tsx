@@ -6,7 +6,7 @@ export default function Page() {
     <Fragment>
       <Header />
       <main>
-        <div>
+        <div className='h-[200vh]'>
           <p>Hello world</p>
         </div>
       </main>
