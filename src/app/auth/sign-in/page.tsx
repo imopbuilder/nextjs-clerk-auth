@@ -1,6 +1,6 @@
 import AuthHeader from '@/components/pages/auth';
 import { SignIn } from '@clerk/nextjs';
-import { Fragment } from 'react';
+import { Fragment, Suspense } from 'react';
 
 export default function Page() {
   return (
@@ -9,7 +9,9 @@ export default function Page() {
       <main>
         <section>
           <div className='py-14 flex items-center justify-center'>
-            <SignIn />
+            <Suspense fallback={<p>loading...</p>}>
+              <SignIn />
+            </Suspense>
           </div>
         </section>
       </main>
