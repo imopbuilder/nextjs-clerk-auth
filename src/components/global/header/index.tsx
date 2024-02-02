@@ -11,11 +11,11 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Skeleton } from '@/components/ui/skeleton';
 import { genetateUserName } from '@/lib/utils/generate-user-name';
-import { ClerkLoaded, ClerkLoading, SignedIn, SignedOut, UserButton, UserProfile, currentUser } from '@clerk/nextjs';
+import { UserProfile, currentUser } from '@clerk/nextjs';
 import { Settings } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Fragment } from 'react';
+import { Fragment, Suspense } from 'react';
 import { ThemeToggle } from '../theme-toggle';
 import { SignoutBtn, UserButtonDialogContent } from './client';
 
@@ -40,23 +40,10 @@ export default function Header() {
 function AuthButtons() {
   return (
     <Fragment>
-      <ClerkLoading>
-        <Skeleton className='size-10 rounded-full' />
-      </ClerkLoading>
-      <ClerkLoaded>
-        <SignedIn>
-          <UserButton />
-          <CustomUserButton />
-        </SignedIn>
-        <SignedOut>
-          <Button variant='outline' size='lg' asChild>
-            <Link href={process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL}>Sign in</Link>
-          </Button>
-          <Button size='lg' asChild>
-            <Link href={process.env.NEXT_PUBLIC_CLERK_SIGN_UP_URL}>Sign up</Link>
-          </Button>
-        </SignedOut>
-      </ClerkLoaded>
+      {/* <UserButton /> */}
+      <Suspense fallback={<Skeleton className='size-10 rounded-full' />}>
+        <CustomUserButton />
+      </Suspense>
     </Fragment>
   );
 }
@@ -64,6 +51,18 @@ function AuthButtons() {
 async function CustomUserButton() {
   const user = await currentUser();
   const email = user?.emailAddresses.find((val) => val.id === user.primaryEmailAddressId);
+
+  if (!user)
+    return (
+      <Fragment>
+        <Button variant='outline' size='lg' asChild>
+          <Link href={process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL}>Sign in</Link>
+        </Button>
+        <Button size='lg' asChild>
+          <Link href={process.env.NEXT_PUBLIC_CLERK_SIGN_UP_URL}>Sign up</Link>
+        </Button>
+      </Fragment>
+    );
 
   return (
     <Dialog>
@@ -74,27 +73,19 @@ async function CustomUserButton() {
             className='ring-primary/50 data-[state=closed]:ring-0 data-[state=open]:ring-4 duration-200 rounded-full focus:outline-0 border-primary-foreground border'
           >
             <Avatar className='scale-100 shadow-lg'>
-              <AvatarImage src={user?.imageUrl} alt='profile-pic' />
-              <AvatarFallback>{genetateUserName(user ? `${user?.firstName} ${user?.lastName}` : email?.emailAddress ?? 'AF')}</AvatarFallback>
+              <AvatarImage src={user.imageUrl} alt='profile-pic' />
+              <AvatarFallback>{genetateUserName(`${user.firstName} ${user.lastName}`)}</AvatarFallback>
             </Avatar>
           </button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className='w-96 rounded-[1rem] py-6 px-0 border-2 border-transparent shadow-spread' align='end' sideOffset={12}>
+        <DropdownMenuContent className='w-96 rounded-[1rem] py-6 px-0 border-2 border-transparent shadow-spread' align='end' sideOffset={10}>
           <DropdownMenuLabel className='font-normal px-6 py-0 mb-2'>
             <div className='flex justify-start items-center gap-4'>
               <div className='w-11 aspect-square'>
-                <Image
-                  src={user?.imageUrl as string}
-                  className='rounded-full'
-                  alt='profile-pic'
-                  width={100}
-                  height={100}
-                  unoptimized
-                  loading='lazy'
-                />
+                <Image src={user.imageUrl} className='rounded-full' alt='profile-pic' width={100} height={100} unoptimized loading='lazy' />
               </div>
               <div>
-                <p className='font-medium text-sm'>{`${user?.firstName} ${user?.lastName}`}</p>
+                <p className='font-medium text-sm'>{`${user.firstName} ${user.lastName}`}</p>
                 <p className='text-muted-foreground text-[13px]'>{email ? email.emailAddress : '-'}</p>
               </div>
             </div>
