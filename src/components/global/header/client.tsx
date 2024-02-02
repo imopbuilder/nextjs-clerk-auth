@@ -1,10 +1,11 @@
 'use client';
 
+import { DialogContent } from '@/components/ui/dialog';
 import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import { useClerk } from '@clerk/nextjs';
 import { LogOut } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import CircularLoader from '../loader/circular-loader';
 
 export function SignoutBtn() {
@@ -22,7 +23,7 @@ export function SignoutBtn() {
 
   return (
     <DropdownMenuItem
-      className='focus:text-destructive-foreground focus:bg-destructive text-muted-foreground w-full hover:cursor-pointer px-6 py-3.5 rounded-lg group font-medium'
+      className='focus:text-destructive dark:focus:text-red-500 text-muted-foreground w-full hover:cursor-pointer px-6 py-3.5 rounded-xl group font-medium'
       onClick={(e) => e.preventDefault()}
       asChild
     >
@@ -33,5 +34,16 @@ export function SignoutBtn() {
         <span>Sign out</span>
       </button>
     </DropdownMenuItem>
+  );
+}
+
+export function UserButtonDialogContent({ children }: { children: ReactNode }) {
+  return (
+    <DialogContent
+      className='p-0 bg-transparent border-none h-[min(44rem,_100%_-_3rem)] max-w-none w-max shadow-none'
+      onOpenAutoFocus={(e) => e.preventDefault()}
+    >
+      {children}
+    </DialogContent>
   );
 }

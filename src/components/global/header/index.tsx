@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,7 +17,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Fragment } from 'react';
 import { ThemeToggle } from '../theme-toggle';
-import { SignoutBtn } from './client';
+import { SignoutBtn, UserButtonDialogContent } from './client';
 
 export default function Header() {
   return (
@@ -79,7 +79,7 @@ async function CustomUserButton() {
             </Avatar>
           </button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className='w-96 rounded-[1rem] py-6 px-0 border-transparent shadow-spread' align='end' sideOffset={12}>
+        <DropdownMenuContent className='w-96 rounded-[1rem] py-6 px-0 border-2 border-transparent shadow-spread' align='end' sideOffset={12}>
           <DropdownMenuLabel className='font-normal px-6 py-0 mb-2'>
             <div className='flex justify-start items-center gap-4'>
               <div className='w-11 aspect-square'>
@@ -108,11 +108,11 @@ async function CustomUserButton() {
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <DialogContent className='p-0 bg-transparent border-none h-[min(44rem,_100%_-_3rem)] max-w-none w-max'>
+      <UserButtonDialogContent>
         <div className='h-[min(44rem,_100%_-_3rem)] flex items-stretch justify-start'>
           <UserProfile />
         </div>
-      </DialogContent>
+      </UserButtonDialogContent>
     </Dialog>
   );
 }
@@ -120,7 +120,7 @@ async function CustomUserButton() {
 function UserProfileItem() {
   return (
     <DialogTrigger asChild>
-      <DropdownMenuItem className='text-muted-foreground w-full hover:cursor-pointer px-6 py-3.5 rounded-lg group font-medium' asChild>
+      <DropdownMenuItem className='text-muted-foreground w-full hover:cursor-pointer px-6 py-3.5 rounded-xl group font-medium' asChild>
         <button type='button' className='gap-4'>
           <span className='flex items-stretch justify-center basis-11'>
             <Settings size={16} strokeWidth={2} />

@@ -76,10 +76,6 @@
 		scroll-behavior: smooth;
 	}
 
-	html {
-		scrollbar-gutter: stable;
-	}
-
 	::selection {
 		color: hsl(var(--background));
 		background-color: hsl(var(--foreground));
@@ -107,10 +103,6 @@
 	body {
 		margin: 0;
 	}
-
-	body[style] {
-		margin-right: 0px !important;
-	}
 }
 
 @layer base {
@@ -120,4 +112,12 @@
 	body {
 		@apply bg-background text-foreground;
 	}
+}
+
+.cl-card {
+	margin: 0 0 !important;
+}
+
+.cl-scrollBox ~ div {
+	display: none;
 }
