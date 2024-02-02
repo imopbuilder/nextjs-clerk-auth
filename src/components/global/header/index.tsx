@@ -101,7 +101,9 @@ async function CustomUserButton() {
 
       <UserButtonDialogContent>
         <div className='h-[min(44rem,_100%_-_3rem)] flex items-stretch justify-start'>
-          <UserProfile />
+          <Suspense fallback={<p>loading...</p>}>
+            <UserProfile />
+          </Suspense>
         </div>
       </UserButtonDialogContent>
     </Dialog>
