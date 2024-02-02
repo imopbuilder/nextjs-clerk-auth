@@ -118,6 +118,6 @@
 	margin: 0 0 !important;
 }
 
-.cl-scrollBox ~ div {
+:is(.cl-scrollBox, .cl-footer) ~ div {
 	display: none;
 }
