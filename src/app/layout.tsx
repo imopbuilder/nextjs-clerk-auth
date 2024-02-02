@@ -1,4 +1,3 @@
-import { ClerkProvider } from '@/client/providers/clerk-provider';
 import { ThemeProvider } from '@/client/providers/theme-provider';
 import '@/styles/main.scss';
 import type { Metadata } from 'next';
@@ -20,7 +19,7 @@ export default function RootLayout({
     <html lang='en' suppressHydrationWarning>
       <body className={inter.className}>
         <ThemeProvider attribute='class' defaultTheme='dark' enableSystem disableTransitionOnChange>
-          <ClerkProvider>{children}</ClerkProvider>
+          {children}
         </ThemeProvider>
       </body>
     </html>
